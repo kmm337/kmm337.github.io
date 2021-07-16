@@ -27,14 +27,13 @@ function optionChanged(newSample) {
   // Fetch new data each time a new sample is selected
   buildMetadata(newSample);
   buildCharts(newSample);
-  
 }
 
 // Demographics Panel 
 function buildMetadata(sample) {
   d3.json("samples.json").then((data) => {
     var metadata = data.metadata;
-    // console.log(metadata);
+
     // Filter the data for the object with the desired sample number
     var resultArray = metadata.filter(sampleObj => sampleObj.id == sample);
     var result = resultArray[0];
@@ -187,99 +186,96 @@ function buildCharts(sample) {
     var result = resultArray[0];
     var wfreq = result.wfreq;
 
-  // 4. Create the trace for the gauge chart.
-  var gaugeData = [
-    {
-      domain : {x : [0,1], y : [0,1]},
-      value : wfreq,
-      title : {text : "<b>Belly Button Washing Frequency</b><br>Scrubs per Week"},
-      mode : "gauge+number",
-      type: "indicator",
-      gauge : {
-        axis : {
-          range : [null, 10],
-          tick0 : 0,
-          dtick : 2
-        },
-        bar : {color : "black"},
-        steps : [
-          {range : [0,2], color : "red"},
-          {range : [2,4], color : "orange"},
-          {range : [4,6], color : "yellow"},
-          {range : [6,8], color : "lightgreen"},
-          {range : [8,10], color : "green"}
-        ],
+    // 4. Create the trace for the gauge chart.
+    var gaugeData = [
+      {
+        domain : {x : [0,1], y : [0,1]},
+        value : wfreq,
+        title : {text : "<b>Belly Button Washing Frequency</b><br>Scrubs per Week"},
+        mode : "gauge+number",
+        type: "indicator",
+        gauge : {
+          axis : {
+            range : [null, 10],
+            tick0 : 0,
+            dtick : 2
+          },
+          bar : {color : "black"},
+          steps : [
+            {range : [0,2], color : "red"},
+            {range : [2,4], color : "orange"},
+            {range : [4,6], color : "yellow"},
+            {range : [6,8], color : "lightgreen"},
+            {range : [8,10], color : "green"}
+          ],
+        }
       }
-    }
-  ];
+    ];
   
-  // 5. Create the layout for the gauge chart.
-  var gaugeLayout = {};
+    // 5. Create the layout for the gauge chart.
+    var gaugeLayout = {};
 
-  // 6. Use Plotly to plot the gauge data and layout.
-  Plotly.newPlot("gauge", gaugeData, gaugeLayout);
+    // 6. Use Plotly to plot the gauge data and layout.
+    Plotly.newPlot("gauge", gaugeData, gaugeLayout);
 
-   // 4. Customizations
+  //  // 4. Customizations
 
-    function createHoverText(a ,b, c) {
-      var hoverTextArray = [];
-        for (k = 0; k < a.length; k++) {
-          ht = "(" + a[k] + ", " + b[k] + ")<br>" + c[k];
-          hoverTextArray.push(ht);
-        }
-      return hoverTextArray;
-    }
-    var hoverText = createHoverText(otuIds, sampleValues, otuLabels);
+  //   function createHoverText(a ,b, c) {
+  //     var hoverTextArray = [];
+  //       for (k = 0; k < a.length; k++) {
+  //         ht = "(" + a[k] + ", " + b[k] + ")<br>" + c[k];
+  //         hoverTextArray.push(ht);
+  //       }
+  //     return hoverTextArray;
+  //   }
+  //   var hoverText = createHoverText(otuIds, sampleValues, otuLabels);
 
-    var bubbleSize = sampleValues.map(size => size * .75);
+  //   var bubbleSize = sampleValues.map(size => size * .75);
     
-    var bubbleData = [{
-      x : otuIds,
-      y : sampleValues,
-      mode : "markers",
-      type : "scatter",
-      // text : hoverText,
-      hoverinfo : 'text',
-      hovertext: hoverText,
-      marker: {
-        color: otuIds, //values to be used to choose the color
-        colorscale: "Earth",
-        cmin: 0,
-        cmax: 3500,
-        size: bubbleSize,
-        //sizemode: 'area',
-        showscale: false,
-        colorbar: {
-          thickness: 10,
-          y: 0.5,
-          ypad: 0,
-          title: 'OTU ID',
-          titleside: 'bottom',
-          outlinewidth: 1,
-          outlinecolor: 'black',
-          tickfont: {
-            family: 'Lato',
-            size: 14,
-            color: 'green'
-          }
-        }
-      }
+  //   var bubbleData = [{
+  //     x : otuIds,
+  //     y : sampleValues,
+  //     mode : "markers",
+  //     type : "scatter",
+  //     // text : hoverText,
+  //     hoverinfo : 'text',
+  //     hovertext: hoverText,
+  //     marker: {
+  //       color: otuIds, //values to be used to choose the color
+  //       colorscale: "Earth",
+  //       cmin: 0,
+  //       cmax: 3500,
+  //       size: bubbleSize,
+  //       //sizemode: 'area',
+  //       showscale: false,
+  //       colorbar: {
+  //         thickness: 10,
+  //         y: 0.5,
+  //         ypad: 0,
+  //         title: 'OTU ID',
+  //         titleside: 'bottom',
+  //         outlinewidth: 1,
+  //         outlinecolor: 'black',
+  //         tickfont: {
+  //           family: 'Lato',
+  //           size: 14,
+  //           color: 'green'
+  //         }
+  //       }
+  //     }
     
-    }];
+  //   }];
 
-    // 2. Create the layout for the bubble chart.
-    var bubbleLayout = {
-      title : "Bacteria Cultures Per Sample",
-      xaxis : {
-        title: "OTU ID"
-      }
-    };
+  //   // 2. Create the layout for the bubble chart.
+  //   var bubbleLayout = {
+  //     title : "Bacteria Cultures Per Sample",
+  //     xaxis : {
+  //       title: "OTU ID"
+  //     }
+  //   };
 
-    // 3. Use Plotly to plot the data with the layout.
-    Plotly.newPlot('bubble', bubbleData, bubbleLayout); 
+  //   // 3. Use Plotly to plot the data with the layout.
+  //   Plotly.newPlot('bubble', bubbleData, bubbleLayout); 
   });
 
-  });
-
-}
-
+};
