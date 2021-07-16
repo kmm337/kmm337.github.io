@@ -1,8 +1,11 @@
 # My files
+
+.gitignore
 config.js
 biodiversity.jpg
 Belly*
 Deposit*
+data.js
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
