@@ -98,7 +98,10 @@ function buildCharts(sample) {
       hoverinfo : 'text',
       hovertext : hoverLabels,
       mode : "markers",
-      marker : {size : 12},
+      marker : {
+        size : 12,
+        color: "#0D80AA"
+      },
       type : "bar",
       orientation : 'h'
     }]; 
@@ -109,11 +112,17 @@ function buildCharts(sample) {
       yaxis : {
         type: "category"
       },
-      title: "Top Ten Bacteria Cultures Found"
+      title: {
+        text: "Top Ten Bacteria Cultures Found",
+        font: {
+          color: "#0D80AA",
+          weight: "bold"
+        }
+      }
     };
-
+    var config = {responsive: true}
     // 10. Use Plotly to plot the data with the layout. 
-    Plotly.newPlot("bar",barData,barLayout);   
+    Plotly.newPlot("bar",barData,barLayout, config);   
 
     // 1. Create the trace for the bubble chart.
     // hover text needs to combine otuId, sampleValue and otuLabel
@@ -166,14 +175,19 @@ function buildCharts(sample) {
 
     // 2. Create the layout for the bubble chart.
     var bubbleLayout = {
-      title : "Bacteria Cultures Per Sample",
+      title : {
+        text: "Bacteria Cultures Per Sample",
+        font: {
+          color: "#0D80AA"
+        }
+      },
       xaxis : {
         title: "OTU ID"
       }
     };
-
+    var config = {responsive: true}
     // 3. Use Plotly to plot the data with the layout.
-    Plotly.newPlot('bubble', bubbleData, bubbleLayout); 
+    Plotly.newPlot('bubble', bubbleData, bubbleLayout, config); 
   });
 
   // Create the Guage Chart
@@ -191,7 +205,12 @@ function buildCharts(sample) {
       {
         domain : {x : [0,1], y : [0,1]},
         value : wfreq,
-        title : {text : "<b>Belly Button Washing Frequency</b><br>Scrubs per Week"},
+        title : {
+          text : "Belly Button Washing Frequency<br>Scrubs per Week",
+          font: {
+            color: "#0D80AA"
+          }
+        },
         mode : "gauge+number",
         type: "indicator",
         gauge : {
@@ -211,71 +230,13 @@ function buildCharts(sample) {
         }
       }
     ];
-  
+    
     // 5. Create the layout for the gauge chart.
     var gaugeLayout = {};
-
+    var config = {responsive: true}
     // 6. Use Plotly to plot the gauge data and layout.
-    Plotly.newPlot("gauge", gaugeData, gaugeLayout);
+    Plotly.newPlot("gauge", gaugeData, gaugeLayout,config);
 
-  //  // 4. Customizations
-
-  //   function createHoverText(a ,b, c) {
-  //     var hoverTextArray = [];
-  //       for (k = 0; k < a.length; k++) {
-  //         ht = "(" + a[k] + ", " + b[k] + ")<br>" + c[k];
-  //         hoverTextArray.push(ht);
-  //       }
-  //     return hoverTextArray;
-  //   }
-  //   var hoverText = createHoverText(otuIds, sampleValues, otuLabels);
-
-  //   var bubbleSize = sampleValues.map(size => size * .75);
-    
-  //   var bubbleData = [{
-  //     x : otuIds,
-  //     y : sampleValues,
-  //     mode : "markers",
-  //     type : "scatter",
-  //     // text : hoverText,
-  //     hoverinfo : 'text',
-  //     hovertext: hoverText,
-  //     marker: {
-  //       color: otuIds, //values to be used to choose the color
-  //       colorscale: "Earth",
-  //       cmin: 0,
-  //       cmax: 3500,
-  //       size: bubbleSize,
-  //       //sizemode: 'area',
-  //       showscale: false,
-  //       colorbar: {
-  //         thickness: 10,
-  //         y: 0.5,
-  //         ypad: 0,
-  //         title: 'OTU ID',
-  //         titleside: 'bottom',
-  //         outlinewidth: 1,
-  //         outlinecolor: 'black',
-  //         tickfont: {
-  //           family: 'Lato',
-  //           size: 14,
-  //           color: 'green'
-  //         }
-  //       }
-  //     }
-    
-  //   }];
-
-  //   // 2. Create the layout for the bubble chart.
-  //   var bubbleLayout = {
-  //     title : "Bacteria Cultures Per Sample",
-  //     xaxis : {
-  //       title: "OTU ID"
-  //     }
-  //   };
-
-  //   // 3. Use Plotly to plot the data with the layout.
-  //   Plotly.newPlot('bubble', bubbleData, bubbleLayout); 
   });
 
 };

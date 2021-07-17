@@ -1,5 +1,19 @@
+
 .jumbotron {
     background-image: url("biodiversity-1050x333.jpg");
     background-size: cover;
-    opacity: 0.5;
+}
+div.jumbotron h1, div.jumbotron p {
+    background-color: #ffffff; 
+    color: #0D80AA; 
+}
+.panel-primary, div.well {
+    border-color: #0D80AA;
+}
+.panel-heading {
+    border-color: #0D80AA;
+    background-color: #0D80AA;
+}
+.panel h6, .well h5 {
+    color: #0D80AA; 
 }
