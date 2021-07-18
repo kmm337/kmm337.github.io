@@ -81,7 +81,7 @@ function buildCharts(sample) {
     // Hint: Get the the top 10 otu_ids and map them in descending order  
     //  so the otu_ids with the most bacteria are last. 
     // Hint from the challenge description: Chain the slice() method with the map() and reverse() 
-    // functions to retrieve the top 10 otu_ids sorted in descending order??
+    // functions to retrieve the top 10 otu_ids sorted in descending order
     // yticks are "OTU " + otuIds
 
     var yticks = otuIds.slice(0,10).reverse().map(id => "OTU " + id);  
@@ -120,7 +120,7 @@ function buildCharts(sample) {
         }
       }
     };
-    var config = {responsive: true}
+    var config = {responsive: true};
     // 10. Use Plotly to plot the data with the layout. 
     Plotly.newPlot("bar",barData,barLayout, config);   
 
